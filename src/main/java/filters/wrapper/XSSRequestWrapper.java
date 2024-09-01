@@ -50,6 +50,20 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 	        Pattern.compile("<((.|[\\r\\n])*)(>|\\\")", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
 	        //Pattern.compile("\\[((.|[\\r\\n])*)(\\]|\\\")", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
 	        //Pattern.compile("<|>|\\[|\\]|&|\"|'|%|\\(|\\)|\\+", Pattern.MULTILINE | Pattern.DOTALL)
+	        
+	    	// Direct call to prompt()
+			Pattern.compile("prompt\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+			  // Event handler with prompt()
+			Pattern.compile("on(.*?)(\\s|=|\\()prompt\\((.*?)\\)(\\)|\\))", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+	
+			  // DOM manipulation with prompt()
+			Pattern.compile("(document|window)\\.([a-zA-Z][a-zA-Z0-9]*)\\.(.*?)(\\s|=|\\()prompt\\((.*?)\\)(\\)|\\))", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+
+
+			Pattern.compile("alert\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+			Pattern.compile("on(.*?)(\\s|=|\\()alert\\((.*?)\\)(\\)|\\))", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+			Pattern.compile("(document|window)\\.([a-zA-Z][a-zA-Z0-9]*)\\.(.*?)(\\s|=|\\()alert\\((.*?)\\)(\\)|\\))", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL)
+
 	    };
 
 	    @Override
